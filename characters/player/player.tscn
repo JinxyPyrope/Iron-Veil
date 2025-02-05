@@ -216,3 +216,5 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)
 shape = SubResource("CapsuleShape2D_medoe")
+
+[node name="State Machine" type="Node" parent="."]

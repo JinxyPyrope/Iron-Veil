@@ -1,44 +1,46 @@
-class_name StateMachine extends Node
+class_name NodeFiniteStateMachine
+extends Node
 
-## The initial state of the state machine. If not set, the first child node is used.
-@export var initial_state: State = null
+@export var initial_node_state : NodeState
 
-## The current state of the state machine.
-@onready var state: State = (func get_initial_state() -> State:
-	return initial_state if initial_state != null else get_child(0)
-).call()
+var node_states : Dictionary  = {}
+var current_node_state : NodeState
+var current_node_state_name : String
 
-
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Give every state a reference to the state machine.
-	for state_node: State in find_children("*", "State"):
-		state_node.finished.connect(_transition_to_next_state)
+	for child in get_children():
+		if child is NodeState:
+			node_states[child.name.to_lower()] = child
+			child.transition.connect(transition_to)
+		
+	if initial_node_state:
+		initial_node_state.enter()
+		current_node_state = initial_node_state
 
-	# State machines usually access data from the root node of the scene they're part of: the owner.
-	# We wait for the owner to be ready to guarantee all the data and nodes the states may need are available.
-	await owner.ready
-	state.enter("")
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float):
+	if current_node_state:
+		current_node_state.on_process(delta)
 	
+func _physics_process(delta: float):
+	if current_node_state:
+		current_node_state.on_physics_process(delta)
 	
-func _unhandled_input(event: InputEvent) -> void:
-	state.handle_input(event)
+	print("Current State: ", current_node_state.name.to_lower())
 
-func _process(delta: float) -> void:
-	state.update(delta)
-
-
-func _physics_process(delta: float) -> void:
-	state.physics_update(delta)
-	
-#Changes the active state when the state emits the signal. 
-#Because we use nodes for states, we can check if a state exists 
-#using has_node() before transitioning to it.
-func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
-	if not has_node(target_state_path):
-		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
+func transition_to(node_state_name : String):
+	if node_state_name == current_node_state.name.to_lower():
 		return
-
-	var previous_state_path := state.name
-	state.exit()
-	state = get_node(target_state_path)
-	state.enter(previous_state_path, data)
+	
+	var new_node_state = node_states.get(node_state_name.to_lower())
+	
+	if !new_node_state:
+		return
+	
+	if current_node_state:
+		current_node_state.exit()
+		
+	new_node_state.enter()
+	current_node_state = new_node_state
+	current_node_state_name = current_node_state.name.to_lower()
