@@ -249,8 +249,11 @@ script = ExtResource("8_1e68a")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Jump" type="Node" parent="State Machine"]
+[node name="Jump" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
 script = ExtResource("9_4hpur")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+max_jump_count = 2
 
 [node name="Fall" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
 script = ExtResource("10_lj6p4")

@@ -16,6 +16,8 @@ func on_physics_process(delta: float) -> void:
 	
 	character_body_2d.move_and_slide()
 	
+	#State Transitions
+	
 	#fall state
 	if !character_body_2d.is_on_floor():
 		transition.emit("Fall")
@@ -25,6 +27,11 @@ func on_physics_process(delta: float) -> void:
 	
 	if direction and character_body_2d.is_on_floor():
 		transition.emit("Run")
+		
+	#jump state
+	if GameInputEvents.jump_input():
+		transition.emit("Jump")
+	
 	
 func enter():
 	animated_sprite_2d.play("idle")
