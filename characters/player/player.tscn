@@ -117,6 +117,11 @@ region = Rect2(1120, 40, 40, 40)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v2can"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack_1",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7ixxp")
@@ -227,9 +232,7 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"jump"
-frame = 4
-frame_progress = 1.0
+animation = &"attack_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)
@@ -259,6 +262,10 @@ max_jump_count = 2
 script = ExtResource("10_lj6p4")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+
+[node name="Attack" type="Node" parent="State Machine"]
+
+[node name="Attack1" type="Node" parent="State Machine/Attack"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
