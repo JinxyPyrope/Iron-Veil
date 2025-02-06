@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bu4dern1dwuy7"]
+[gd_scene load_steps=36 format=3 uid="uid://bu4dern1dwuy7"]
 
 [ext_resource type="Texture2D" uid="uid://bdbnglt67yjt6" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_1kvfu"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_ur148"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ipavpwy5j2wy" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Run.png" id="4_3em4d"]
 [ext_resource type="Script" path="res://scripts/state_machine/node_finite_state_machine.gd" id="6_6kuc5"]
 [ext_resource type="Script" path="res://characters/player/player_states/idle_state.gd" id="7_xcpit"]
+[ext_resource type="Script" path="res://characters/player/player_states/run_state.gd" id="8_1e68a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdbfu"]
 atlas = ExtResource("3_nrhye")
@@ -229,5 +230,10 @@ initial_node_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
 script = ExtResource("7_xcpit")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+
+[node name="Run" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
+script = ExtResource("8_1e68a")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
