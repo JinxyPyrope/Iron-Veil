@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
- #Player Global default values
-@export var gravity: float = 980.0  # Adjust based on your needs
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

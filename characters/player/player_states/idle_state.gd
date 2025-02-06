@@ -14,11 +14,11 @@ func on_physics_process(delta: float) -> void:
 	#Applies Friciton to stop player from moving
 	character_body_2d.velocity.x = move_toward(character_body_2d.velocity.x, 0, slow_down_speed)
 	
-	#Apply Gravity
-	if not character_body_2d.is_on_floor():
-		character_body_2d.velocity.y += character_body_2d.gravity * delta
-	
 	character_body_2d.move_and_slide()
+	
+	#fall state
+	if !character_body_2d.is_on_floor():
+		transition.emit("Fall")
 	
 	#run state
 	var direction : float = GameInputEvents.movement_input()
