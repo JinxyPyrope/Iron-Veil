@@ -28,6 +28,10 @@ func on_physics_process(delta : float):
 	if direction == 0:
 		transition.emit("Idle")
 		
+	#jump state
+	if GameInputEvents.jump_input():
+		transition.emit("Jump")
+		
 func enter():
 	animated_sprite_2d.play('run')
 	
