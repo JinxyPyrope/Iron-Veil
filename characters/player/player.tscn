@@ -203,7 +203,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_mibqw")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"run",
 "speed": 14.0
 }]
 
@@ -218,7 +218,7 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"idle"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)

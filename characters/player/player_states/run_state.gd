@@ -27,3 +27,9 @@ func on_physics_process(delta : float):
 	#idle state
 	if direction == 0:
 		transition.emit("Idle")
+		
+func enter():
+	animated_sprite_2d.play('run')
+	
+func exit():
+	animated_sprite_2d.stop()
