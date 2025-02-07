@@ -4,13 +4,13 @@ extends NodeState
 @export var animated_sprite_2d : AnimatedSprite2D
 
 var combo_stage: int = 1  # Track which attack we're on
-var combo_timer: Timer
-var attack_timer: Timer
+@export var combo_timer: Timer
+@export var attack_timer: Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	combo_timer = $ComboTimer
-	attack_timer = $AttackTimer
+	#combo_timer = $ComboTimer
+	#attack_timer = $AttackTimer
 	print("Parent attack state initialized!")
 	print("Combo Timer Connected:", combo_timer)
 
@@ -18,6 +18,10 @@ func on_process(_delta : float):
 	pass
 
 func on_physics_process(delta : float):
+	if GameInputEvents.attack_input() and !combo_timer.is_stopped():
+		print("Attack input detected during combo window!")
+		transition.emit("Attack1")  # Move to Attack1 state
+	
 	if combo_timer.is_stopped():
 		print("Combo timer ended!")
 		transition.emit("Idle")  # Corrected signal for state transition
