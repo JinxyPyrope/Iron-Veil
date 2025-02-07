@@ -7,32 +7,29 @@ var combo_stage: int = 1  # Track which attack we're on
 @export var combo_timer: Timer
 @export var attack_timer: Timer
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#combo_timer = $ComboTimer
-	#attack_timer = $AttackTimer
-	print("Parent attack state initialized!")
-	print("Combo Timer Connected:", combo_timer)
+	pass
 
 func on_process(_delta : float):
 	pass
 
 func on_physics_process(delta : float):
-	if GameInputEvents.attack_input() and !combo_timer.is_stopped():
-		print("Attack input detected during combo window!")
-		transition.emit("Attack1")  # Move to Attack1 state
-	
+	# Remove the input check from here; we want immediate transition from enter()
 	if combo_timer.is_stopped():
 		print("Combo timer ended!")
-		transition.emit("Idle")  # Corrected signal for state transition
+		transition.emit("Idle")
 
 func enter():
 	print("Parent Attack State Enter Started")
 	start_attack(combo_stage)
 	
+	# Immediately transition to the first attack when entering the Attack state
+	print("Auto-transitioning to Attack1")
+	transition.emit("attack1")
+
 func exit():
 	pass
 
 func start_attack(stage):
-	combo_timer.start(0.3)
+	combo_timer.start(0.9)
 	print("Combo Timer Started with wait time:", combo_timer)

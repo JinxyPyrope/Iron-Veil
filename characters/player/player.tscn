@@ -158,9 +158,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_arepm")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -278,7 +278,7 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"idle"
+animation = &"attack_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, -19)
@@ -316,16 +316,17 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 combo_timer = NodePath("ComboTimer")
 attack_timer = NodePath("AttackCooldownTimer")
 
-[node name="Attack1" type="Node" parent="State Machine/Attack" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
-script = ExtResource("14_jo6k5")
-character_body_2d = NodePath("../../..")
-animated_sprite_2d = NodePath("../../../AnimatedSprite2D")
-
 [node name="ComboTimer" type="Timer" parent="State Machine/Attack"]
 one_shot = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="State Machine/Attack"]
 one_shot = true
+
+[node name="Attack1" type="Node" parent="State Machine/Attack" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer")]
+script = ExtResource("14_jo6k5")
+character_body_2d = NodePath("../../..")
+animated_sprite_2d = NodePath("../../../AnimatedSprite2D")
+combo_timer = NodePath("../ComboTimer")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
