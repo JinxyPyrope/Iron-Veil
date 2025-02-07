@@ -308,10 +308,18 @@ script = ExtResource("10_lj6p4")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node" parent="State Machine"]
+[node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
 script = ExtResource("13_ru3vj")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
 [node name="Attack1" type="Node" parent="State Machine/Attack"]
+
+[node name="ComboTimer" type="Timer" parent="State Machine/Attack"]
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="State Machine/Attack"]
+one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
