@@ -43,11 +43,13 @@ func _physics_process(delta: float):
 
 func transition_to(node_state_name : String):
 	if node_state_name == current_node_state.name.to_lower():
+		print("Already in state:", current_node_state.name)
 		return  # Prevent transitioning into the same state
 	
 	var new_node_state = node_states.get(node_state_name.to_lower())
 	
 	if !new_node_state:
+		print("State not found:", node_state_name)
 		return
 	
 	if current_node_state:
@@ -59,3 +61,9 @@ func transition_to(node_state_name : String):
 	current_node_state = new_node_state
 	current_node_state_name = current_node_state.name.to_lower()
 	print("3 - Now in state:", current_node_state.name)
+
+	# Debugging to ensure correct state transitions
+	if current_node_state.name.to_lower() == "attack1":
+		print("Confirmed: Now in Attack1 state")
+	elif current_node_state.name.to_lower() == "attack":
+		print("Unexpected return to Attack state")

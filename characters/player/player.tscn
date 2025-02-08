@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bu4dern1dwuy7"]
+[gd_scene load_steps=56 format=3 uid="uid://bu4dern1dwuy7"]
 
 [ext_resource type="Texture2D" uid="uid://bdbnglt67yjt6" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_1kvfu"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_ur148"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://characters/player/player_states/run_state.gd" id="8_1e68a"]
 [ext_resource type="Script" path="res://characters/player/player_states/jump_state.gd" id="9_4hpur"]
 [ext_resource type="Script" path="res://characters/player/player_states/fall_state.gd" id="10_lj6p4"]
-[ext_resource type="Script" path="res://characters/player/player_states/attack_state.gd" id="13_ru3vj"]
 [ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_1_state.gd" id="14_jo6k5"]
 [ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_2_state.gd" id="15_5ocs4"]
 
@@ -186,7 +185,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_1",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -209,7 +208,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_2",
-"speed": 8.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -360,27 +359,25 @@ script = ExtResource("10_lj6p4")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
-process_mode = 3
-script = ExtResource("13_ru3vj")
+[node name="Attack1" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
+script = ExtResource("14_jo6k5")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-combo_timer = NodePath("ComboTimer")
-attack_timer = NodePath("AttackCooldownTimer")
+combo_timer = NodePath("../ComboTimer")
+attack_timer = NodePath("../AttackCooldownTimer")
 
-[node name="ComboTimer" type="Timer" parent="State Machine/Attack"]
-one_shot = true
-
-[node name="AttackCooldownTimer" type="Timer" parent="State Machine/Attack"]
-one_shot = true
-
-[node name="Attack1" type="Node" parent="State Machine/Attack" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
-script = ExtResource("14_jo6k5")
-character_body_2d = NodePath("../../..")
-animated_sprite_2d = NodePath("../../../AnimatedSprite2D")
-
-[node name="Attack2" type="Node" parent="State Machine/Attack"]
+[node name="Attack2" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
 script = ExtResource("15_5ocs4")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+combo_timer = NodePath("../ComboTimer")
+attack_timer = NodePath("../AttackCooldownTimer")
+
+[node name="ComboTimer" type="Timer" parent="State Machine"]
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="State Machine"]
+one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
