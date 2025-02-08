@@ -1,9 +1,10 @@
-[gd_scene load_steps=49 format=3 uid="uid://bu4dern1dwuy7"]
+[gd_scene load_steps=57 format=3 uid="uid://bu4dern1dwuy7"]
 
 [ext_resource type="Texture2D" uid="uid://bdbnglt67yjt6" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_1kvfu"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_ur148"]
 [ext_resource type="Texture2D" uid="uid://b6qynd1x4fuyf" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Jump.png" id="2_8e8n3"]
 [ext_resource type="Texture2D" uid="uid://b2lp5ypa1hs2o" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack.png" id="2_a3tbp"]
+[ext_resource type="Texture2D" uid="uid://bjde4ywe2jtf1" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack2.png" id="3_at50f"]
 [ext_resource type="Texture2D" uid="uid://co767umgjfwc3" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Fall.png" id="3_jnbgf"]
 [ext_resource type="Texture2D" uid="uid://boubwqcsndu5m" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_JumpFallInbetween.png" id="3_nrhye"]
 [ext_resource type="Texture2D" uid="uid://ipavpwy5j2wy" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Run.png" id="4_3em4d"]
@@ -13,7 +14,8 @@
 [ext_resource type="Script" path="res://characters/player/player_states/jump_state.gd" id="9_4hpur"]
 [ext_resource type="Script" path="res://characters/player/player_states/fall_state.gd" id="10_lj6p4"]
 [ext_resource type="Script" path="res://characters/player/player_states/attack_state.gd" id="13_ru3vj"]
-[ext_resource type="Script" path="res://characters/player/player_states/attack_1_state.gd" id="14_jo6k5"]
+[ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_1_state.gd" id="14_jo6k5"]
+[ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_2_state.gd" id="15_5ocs4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dydcn"]
 atlas = ExtResource("2_a3tbp")
@@ -30,6 +32,30 @@ region = Rect2(240, 0, 120, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_arepm"]
 atlas = ExtResource("2_a3tbp")
 region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0akn3"]
+atlas = ExtResource("3_at50f")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk5j1"]
+atlas = ExtResource("3_at50f")
+region = Rect2(120, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcxoe"]
+atlas = ExtResource("3_at50f")
+region = Rect2(240, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp4rd"]
+atlas = ExtResource("3_at50f")
+region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyx3b"]
+atlas = ExtResource("3_at50f")
+region = Rect2(480, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjlp8"]
+atlas = ExtResource("3_at50f")
+region = Rect2(600, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tlmvr"]
 atlas = ExtResource("3_jnbgf")
@@ -160,7 +186,30 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_1",
-"speed": 10.0
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0akn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk5j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcxoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp4rd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyx3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjlp8")
+}],
+"loop": false,
+"name": &"attack_2",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -278,7 +327,9 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"attack_1"
+animation = &"attack_2"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, -19)
@@ -310,6 +361,7 @@ character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
 [node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
+process_mode = 3
 script = ExtResource("13_ru3vj")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
@@ -322,11 +374,13 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="State Machine/Attack"]
 one_shot = true
 
-[node name="Attack1" type="Node" parent="State Machine/Attack" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer")]
+[node name="Attack1" type="Node" parent="State Machine/Attack" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
 script = ExtResource("14_jo6k5")
 character_body_2d = NodePath("../../..")
 animated_sprite_2d = NodePath("../../../AnimatedSprite2D")
-combo_timer = NodePath("../ComboTimer")
+
+[node name="Attack2" type="Node" parent="State Machine/Attack"]
+script = ExtResource("15_5ocs4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
