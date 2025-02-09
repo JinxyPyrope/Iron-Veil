@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bu4dern1dwuy7"]
+[gd_scene load_steps=57 format=3 uid="uid://bu4dern1dwuy7"]
 
 [ext_resource type="Texture2D" uid="uid://bdbnglt67yjt6" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_1kvfu"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_ur148"]
@@ -319,6 +319,9 @@ animations = [{
 radius = 8.0
 height = 38.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gyukr"]
+radius = 21.0238
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_ur148")
@@ -326,13 +329,19 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"attack_2"
-frame = 5
-frame_progress = 1.0
+animation = &"attack_1"
+frame = 1
+frame_progress = 0.778242
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, -19)
 shape = SubResource("CapsuleShape2D_medoe")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(41, -21)
+shape = SubResource("CircleShape2D_gyukr")
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("6_6kuc5")
@@ -359,10 +368,11 @@ script = ExtResource("10_lj6p4")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack1" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
+[node name="Attack1" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "hitbox", "combo_timer", "attack_timer")]
 script = ExtResource("14_jo6k5")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+hitbox = NodePath("../../Hitbox")
 combo_timer = NodePath("../ComboTimer")
 attack_timer = NodePath("../AttackCooldownTimer")
 
