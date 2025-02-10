@@ -45,5 +45,5 @@ func exit():
 	print("Exiting Attack1 state")
 	animated_sprite_2d.stop()
 	
-	hitbox.monitoring = false
+	
 	collision_shape.debug_color = Color(1, 1, 1, 0.2)  # Reset to light transparent white

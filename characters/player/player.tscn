@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bu4dern1dwuy7"]
+[gd_scene load_steps=58 format=3 uid="uid://bu4dern1dwuy7"]
 
 [ext_resource type="Texture2D" uid="uid://bdbnglt67yjt6" path="res://assets/characters/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_1kvfu"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_ur148"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://characters/player/player_states/idle_state.gd" id="7_xcpit"]
 [ext_resource type="Script" path="res://characters/player/player_states/run_state.gd" id="8_1e68a"]
 [ext_resource type="Script" path="res://characters/player/player_states/jump_state.gd" id="9_4hpur"]
+[ext_resource type="Script" path="res://characters/player/player_hitbox.gd" id="9_wsip3"]
 [ext_resource type="Script" path="res://characters/player/player_states/fall_state.gd" id="10_lj6p4"]
 [ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_1_state.gd" id="14_jo6k5"]
 [ext_resource type="Script" path="res://characters/player/player_states/player_attacks/attack_2_state.gd" id="15_5ocs4"]
@@ -329,19 +330,19 @@ script = ExtResource("1_ur148")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_v2can")
-animation = &"attack_1"
-frame = 1
-frame_progress = 0.778242
+animation = &"attack_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, -19)
 shape = SubResource("CapsuleShape2D_medoe")
 
 [node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("9_wsip3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(41, -21)
 shape = SubResource("CircleShape2D_gyukr")
+debug_color = Color(1, 1, 1, 0.529412)
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("6_6kuc5")
@@ -376,10 +377,11 @@ hitbox = NodePath("../../Hitbox")
 combo_timer = NodePath("../ComboTimer")
 attack_timer = NodePath("../AttackCooldownTimer")
 
-[node name="Attack2" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "combo_timer", "attack_timer")]
+[node name="Attack2" type="Node" parent="State Machine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d", "hitbox", "combo_timer", "attack_timer")]
 script = ExtResource("15_5ocs4")
 character_body_2d = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+hitbox = NodePath("../../Hitbox")
 combo_timer = NodePath("../ComboTimer")
 attack_timer = NodePath("../AttackCooldownTimer")
 
