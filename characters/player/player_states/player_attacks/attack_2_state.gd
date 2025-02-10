@@ -12,6 +12,7 @@ func on_process(delta : float):
 	if attack_timer.is_stopped():
 		print("Attack2 finished. Checking combo window...")
 		hitbox.monitoring = false
+		collision_shape.debug_color = Color(1, 1, 1, 0.2)  # Reset to light transparent white
 		if !combo_timer.is_stopped():
 			print("Combo window open. Waiting for next input...")
 			if GameInputEvents.attack_input():
@@ -41,4 +42,3 @@ func exit():
 	animated_sprite_2d.stop()
 	
 	
-	collision_shape.debug_color = Color(1, 1, 1, 0.2)  # Reset to light transparent white
