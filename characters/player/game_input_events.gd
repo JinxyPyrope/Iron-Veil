@@ -8,3 +8,7 @@ static func movement_input() -> float:
 static func jump_input() -> bool:
 	var jump_input : bool = Input.is_action_just_pressed("jump")
 	return jump_input
+
+static func attack_input() -> bool:
+	var attack_input : bool = Input.is_action_just_pressed("attack")
+	return attack_input
